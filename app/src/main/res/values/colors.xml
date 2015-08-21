@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#990000</color>
+    <color name="green">#009900</color>
+    <color name="blue">#000099</color>
+    <color name="orange">#FF9900</color>
+
+    <color name="swipeLike">#009900</color>
+    <color name="swipeDislike">#FF9900</color>
+    <color name="item_row_bg">#F4F4F4</color>
+    <color name="item_row_bg_selected">#E7E7E7</color>
+
+
+    <color name="app_bg_color">#E7E7E7</color>
+
+    <color name="black_color">#000000</color>
+    <color name="light_silver_color">#F4F4F4</color>
+    <color name="silver_color">#A4A4A4</color>
+    <color name="white_color">#FFF</color>
+</resources>
