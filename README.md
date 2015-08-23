@@ -9,7 +9,7 @@ For education purposes I give to you example demo how to implement :
   - **swipe to dismiss (direction depending)**
   - **"Undo" floating Action Button**
   - **Search RecycleView by SearchView in Toolbar**
-  - 
+  
 ### Version
 1.0
 
