@@ -20,11 +20,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,7 +37,8 @@ import sk.mpage.androidsample.infiniterecycleview.helper.InfiniteScrollListener;
 import sk.mpage.androidsample.infiniterecycleview.helper.SimpleItemTouchHelperCallback;
 import sk.mpage.androidsample.infiniterecycleview.helper.UndoButtonListener;
 
-public class RecyclerListFragment extends Fragment implements UndoButtonListener, InfiniteScrollListener {
+public class RecyclerListFragment extends Fragment
+        implements UndoButtonListener, InfiniteScrollListener, SearchView.OnQueryTextListener {
 
     private ItemTouchHelper mItemTouchHelper;
     private FloatingActionButton myFab;
@@ -60,6 +66,7 @@ public class RecyclerListFragment extends Fragment implements UndoButtonListener
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
 
         myFab = (FloatingActionButton) view.findViewById(R.id.fab);
         myFab.hide();
@@ -88,8 +95,29 @@ public class RecyclerListFragment extends Fragment implements UndoButtonListener
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+
+    }
+
 
     /*-----------------Interface methods -----------------------*/
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        adapter.setFilterQuery(query);
+        return true;
+    }
 
     @Override
     public void checkDataToAdd() {

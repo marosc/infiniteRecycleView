@@ -19,11 +19,14 @@ package sk.mpage.androidsample.infiniterecycleview;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +43,7 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     private final Context context;
     private final List<String> mItems = new ArrayList<>();
+    private String search_query = "";
     private final UndoButtonListener undoButtonListener;
     private final InfiniteScrollListener infiniteScrollListener;
 
@@ -48,6 +52,10 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         this.undoButtonListener = undoButtonListener;
         this.infiniteScrollListener = infiniteScrollListener;
         generateItems();
+    }
+
+    public List<String> getmItems() {
+        return mItems;
     }
 
     @Override
@@ -73,12 +81,36 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
         itemUndoDismissed(item);
     }
 
+    public void setFilterQuery(String query) {
+        Log.d("FilterRecyclerView", "Query: '" + query + "'");
+        this.search_query=query.toLowerCase();
+        mItems.clear();
+        notifyDataSetChanged();
+        infiniteScrollListener.checkDataToAdd();
+    }
+
+    private List<String> filterItems(final List<String> data){
+        if (TextUtils.isEmpty(this.search_query))
+            return data;
+
+        List<String> filteredList = new ArrayList<>();
+        for (String item : data){
+            if (item.toLowerCase().contains(this.search_query)){
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
+    }
+
     public void generateItems() {
         infiniteScrollListener.setLoadingStart();
 
         List<String> data = Arrays.asList(context.getResources().getStringArray(R.array.dummy_items));
+        data = filterItems(data);
+
         int last_pos = mItems.size();
         mItems.addAll(data);
+
         notifyItemRangeInserted(last_pos, last_pos + data.size());
         Log.d("infiniteScroll", "data fetched to " + last_pos + " ( " + data.size() + "), total " + mItems.size());
 

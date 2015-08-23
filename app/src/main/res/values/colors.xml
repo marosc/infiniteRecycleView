@@ -17,4 +17,8 @@
     <color name="light_silver_color">#F4F4F4</color>
     <color name="silver_color">#A4A4A4</color>
     <color name="white_color">#FFF</color>
+
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="accent">#03A9F4</color>
 </resources>

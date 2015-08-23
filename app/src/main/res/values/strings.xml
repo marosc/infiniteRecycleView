@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">InfiniteRecycleView</string>
+    <string name="action_search">Search</string>
 
     <array name="dummy_items">
         <item>One</item>
