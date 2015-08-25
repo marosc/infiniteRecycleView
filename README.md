@@ -1,7 +1,4 @@
 # InfiniteRecycleView
-## + swipe to dismiss (direction depending)
-## + "Undo" floating Action Button
-## + Search RecycleView by SearchView in Toolbar
 
 For education purposes I give to you example demo how to implement :
 
